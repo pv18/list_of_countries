@@ -2,8 +2,13 @@ import React from 'react';
 import {alpha, InputBase, styled} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-export const Search = () => {
-    const Search = styled('div')(({ theme }) => ({
+interface ISearch {
+    title: string
+    setTitle: (title: string) => void
+}
+
+export const Search = (props: ISearch) => {
+    const Search = styled('div')(({theme}) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -18,7 +23,7 @@ export const Search = () => {
         },
     }));
 
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
+    const SearchIconWrapper = styled('div')(({theme}) => ({
         padding: theme.spacing(0, 2),
         height: '100%',
         position: 'absolute',
@@ -28,7 +33,7 @@ export const Search = () => {
         justifyContent: 'center',
     }));
 
-    const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    const StyledInputBase = styled(InputBase)(({theme}) => ({
         color: 'inherit',
         '& .MuiInputBase-input': {
             padding: theme.spacing(1, 1, 1, 0),
@@ -48,11 +53,14 @@ export const Search = () => {
     return (
         <Search>
             <SearchIconWrapper>
-                <SearchIcon />
+                <SearchIcon/>
             </SearchIconWrapper>
             <StyledInputBase
+                autoFocus
+                value={props.title}
+                onChange={e => props.setTitle(e.target.value)}
                 placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
+                inputProps={{'aria-label': 'search'}}
             />
         </Search>
     )
