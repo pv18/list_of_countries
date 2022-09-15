@@ -16,7 +16,9 @@ export const Home = () => {
         let data = [...countries]
 
         if (region) {
-            data = data.filter(c => c.region.includes(region))
+            data = region === 'Regions'
+                ? data
+                : data.filter(c => c.region.includes(region))
         }
 
         if (search) {
@@ -26,16 +28,12 @@ export const Home = () => {
         return data
     }
 
-    const filteredCountries = handleSearch(search,region)
-
-    useEffect(() => {
-        handleSearch(search, region)
-    }, [search, region])
+    const filteredCountries = handleSearch(search, region)
 
     useEffect(() => {
         if (!countries.length) dispatch(fetchCountries())
     }, [])
-
+    console.log(countries)
     return (
         <Container>
             <Grid container justifyContent={'space-around'}>
@@ -46,7 +44,7 @@ export const Home = () => {
                 </Grid>
                 <Grid style={{minWidth: 300}} item mt={4} xs={4}>
                     <Paper elevation={10}>
-                        <CustomSelect region={region} setRegion={setRegion}/>
+                        <CustomSelect setRegion={setRegion}/>
                     </Paper>
                 </Grid>
             </Grid>

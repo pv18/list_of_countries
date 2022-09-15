@@ -18,14 +18,13 @@ const App = () => {
     return (
         <ThemeProvider theme={darkTheme}>
             <Heading darkMode={darkMode} setDarkMode={() => setDarkMode(!darkMode)}/>
-            <Paper>
+            <Paper sx={{minHeight: '100vh'}}>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/country/:name" element={<Details/>}/>
+                    <Route path="details" element={<Details/>}/>
                     <Route path="404" element={<h1>404: PAGE NOT FOUND</h1>}/>
                     <Route path="*" element={<Navigate to={'/404'}/>}/>
                 </Routes>
-
             </Paper>
         </ThemeProvider>
     );

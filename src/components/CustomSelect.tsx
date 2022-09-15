@@ -14,7 +14,8 @@ const regions = [
     'Americas',
     'Polar',
     'Antarctic Ocean',
-    'Antarctic'
+    'Antarctic',
+    'Regions'
 ]
 
 interface ICustomSelect {
@@ -32,7 +33,7 @@ export const CustomSelect = (props: ICustomSelect) => {
     return (
         <Box sx={{minWidth: 120}}>
             <FormControl size={'small'} fullWidth>
-                <InputLabel id="demo-simple-select-label">Region</InputLabel>
+                <InputLabel id="demo-simple-select-label">Regions</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

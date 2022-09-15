@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 
-const BASE_URL = 'https://restcountries.com/v2/'
+const BASE_URL = 'https://restcountries.com/v3.1/'
 
 export const ALL_COUNTRIES = BASE_URL + 'all'
 
@@ -12,10 +12,10 @@ export const filterByCode = (codes: string[]) => BASE_URL + 'alpha?codes=' + cod
 
 
 
-const instance = axios.create({
-    baseURL: 'https://restcountries.com/v2/',
-    // withCredentials: true,
-})
+// const instance = axios.create({
+//     baseURL: 'https://restcountries.com/v2/',
+//     // withCredentials: true,
+// })
 
 export const todolistsAPI = {
     // getTodolists() {
