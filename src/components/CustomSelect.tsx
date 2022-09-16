@@ -12,8 +12,6 @@ const regions = [
     'Africa',
     'Oceania',
     'Americas',
-    'Polar',
-    'Antarctic Ocean',
     'Antarctic',
     'Regions'
 ]

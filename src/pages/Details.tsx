@@ -1,25 +1,23 @@
 import React from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom'
 import {useAppSelector} from '../hooks/hooks';
-import {useTheme} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {CardActions, List, ListItem, ListItemText, Paper} from '@mui/material';
+import CardActions from '@mui/material/CardActions';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
 export const Details = () => {
     const [searchParams, setSearchParams] = useSearchParams()
-    const country = useAppSelector(state => state.countries.list).find(c => c.name === searchParams.get('country'))
+    const country = useAppSelector(state => state.countries.list).find(c => c.name.common === searchParams.get('country'))
     const navigate = useNavigate()
 
     const clickHandler = () => {
@@ -28,46 +26,51 @@ export const Details = () => {
 
     const styleList = {
         width: '100%',
-        // maxWidth: 360,
         marginTop: 2,
         bgcolor: 'background.paper',
     };
 
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', padding: '40px'}}>
-            <Card elevation={24} sx={{ maxWidth: 360 }}>
+            <Card elevation={24} sx={{maxWidth: 360}}>
                 <CardActionArea>
                     <CardMedia
                         component="img"
-                        height="200"
-                        image={country && country.flag}
-                        alt={country && country.name}
+                        height="230"
+                        image={country && country.flags.svg}
+                        alt={country && country.name.common}
                     />
+                    <Divider/>
                     <CardContent>
                         <Typography variant="h4" component="div" textAlign={'center'}>
-                            {country && country.name}
+                            {country && country.name.common}
                         </Typography>
-                        <List sx={styleList} >
+                        <List sx={styleList}>
                             <ListItem>
-                                <ListItemText primary="Inbox" />
-                                asdfasdf
+                                <ListItemText primary="Capital"/>
+                                <Typography variant="subtitle2">
+                                    {country && country.capital[0]}
+                                </Typography>
                             </ListItem>
-                            <Divider />
+                            <Divider/>
+                            <ListItem>
+                                <ListItemText primary="Population"/>
+                                <Typography variant="subtitle2">
+                                    {country && country.population}
+                                </Typography>
+                            </ListItem>
+                            <Divider light/>
                             <ListItem divider>
-                                <ListItemText primary="Drafts" />
-                            </ListItem>
-                            <ListItem>
-                                <ListItemText primary="Trash" />
-                            </ListItem>
-                            <Divider light />
-                            <ListItem>
-                                <ListItemText primary="Spam" />
+                                <ListItemText primary="Continent"/>
+                                <Typography variant="subtitle2">
+                                    {country && country.continents.toString()}
+                                </Typography>
                             </ListItem>
                         </List>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" variant={'contained'} onClick={clickHandler} startIcon={<ArrowBackIcon />}>
+                    <Button size="small" variant={'contained'} onClick={clickHandler} startIcon={<ArrowBackIcon/>}>
                         Back
                     </Button>
                 </CardActions>

@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Grid, Paper} from '@mui/material';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import {Search} from '../components/Search';
 import {CustomSelect} from '../components/CustomSelect';
 import {CountriesList} from '../components/CountriesList';
@@ -22,7 +24,7 @@ export const Home = () => {
         }
 
         if (search) {
-            data = data.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
+            data = data.filter(c => c.name.common.toLowerCase().includes(search.toLowerCase()))
         }
 
         return data
@@ -33,7 +35,7 @@ export const Home = () => {
     useEffect(() => {
         if (!countries.length) dispatch(fetchCountries())
     }, [])
-    console.log(countries)
+
     return (
         <Container>
             <Grid container justifyContent={'space-around'}>

@@ -1,4 +1,4 @@
-import {createAsyncThunk, PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {ICountries} from '../../types/shared';
 import {ALL_COUNTRIES} from '../../api/api';
 import axios from 'axios';
