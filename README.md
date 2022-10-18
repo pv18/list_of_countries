@@ -1,4 +1,4 @@
-[//]: # (![preview]&#40;https://github.com/pv18/todo-v2.0/blob/main/public/img/preview.jpg&#41;)
+![preview](https://github.com/pv18/list_of_countries/blob/master/public/img/preview.jpg)
 # Список флагов государств
 
 API - restcountries.com
