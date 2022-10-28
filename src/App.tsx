@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {Heading} from './components/Heading';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {createTheme} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Home} from './pages/Home';
 import {Details} from './pages/Details';
+import {ThemeProvider} from '@mui/material';
 
 const App = () => {
     const [darkMode, setDarkMode] = useState<boolean>(false)
@@ -18,7 +19,7 @@ const App = () => {
     return (
         <ThemeProvider theme={darkTheme}>
             <Heading darkMode={darkMode} setDarkMode={() => setDarkMode(!darkMode)}/>
-            <Paper sx={{minHeight: '100vh'}}>
+            <Paper sx={{minHeight: '100vh'}} variant={'outlined'}>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="details" element={<Details/>}/>

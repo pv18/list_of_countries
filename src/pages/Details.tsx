@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom'
-import {useAppSelector} from '../hooks/hooks';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,10 +13,12 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
+import {CountriesContext} from '../context/CountriesContext';
 
 export const Details = () => {
+    const {countries} = useContext(CountriesContext)
     const [searchParams, setSearchParams] = useSearchParams()
-    const country = useAppSelector(state => state.countries.list).find(c => c.name.common === searchParams.get('country'))
+    const country = countries.find(c => c.name.common === searchParams.get('country'))
     const navigate = useNavigate()
 
     const clickHandler = () => {
@@ -32,45 +33,49 @@ export const Details = () => {
 
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', padding: '40px'}}>
-            <Card elevation={24} sx={{maxWidth: 360}}>
+            <Card elevation={24} sx={{maxWidth: 600}}>
                 <CardActionArea>
                     <CardMedia
                         component="img"
-                        height="230"
-                        image={country && country.flags.svg}
-                        alt={country && country.name.common}
+                        image={country?.flags.svg}
+                        alt={country?.name.common}
                     />
                     <Divider/>
                     <CardContent>
                         <Typography variant="h4" component="div" textAlign={'center'}>
-                            {country && country.name.common}
+                            {country?.name.common}
                         </Typography>
                         <List sx={styleList}>
                             <ListItem>
                                 <ListItemText primary="Capital"/>
                                 <Typography variant="subtitle2">
-                                    {country && country.capital[0]}
+                                    {country?.capital[0]}
                                 </Typography>
                             </ListItem>
                             <Divider/>
                             <ListItem>
                                 <ListItemText primary="Population"/>
                                 <Typography variant="subtitle2">
-                                    {country && country.population}
+                                    {country?.population}
                                 </Typography>
                             </ListItem>
                             <Divider light/>
                             <ListItem divider>
                                 <ListItemText primary="Continent"/>
                                 <Typography variant="subtitle2">
-                                    {country && country.continents.toString()}
+                                    {country?.continents.toString()}
                                 </Typography>
                             </ListItem>
                         </List>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" variant={'contained'} onClick={clickHandler} startIcon={<ArrowBackIcon/>}>
+                    <Button
+                        size="small"
+                        variant={'contained'}
+                        onClick={clickHandler}
+                        startIcon={<ArrowBackIcon/>}
+                    >
                         Back
                     </Button>
                 </CardActions>

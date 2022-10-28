@@ -1,58 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import {Search} from '../components/Search';
-import {CustomSelect} from '../components/CustomSelect';
 import {CountriesList} from '../components/CountriesList';
-import {fetchCountries} from '../redux/slices/countriesSlice';
-import {useAppDispatch, useAppSelector} from '../hooks/hooks';
+import {CountriesFilters} from '../components/CountriesFilters';
+import {Pagination} from '@mui/material';
+import {CountriesContext} from '../context/CountriesContext';
 
 export const Home = () => {
-    const [search, setSearch] = useState<string>('')
-    const [region, setRegion] = useState<string>('')
-    const countries = useAppSelector(state => state.countries.list)
-    const dispatch = useAppDispatch()
-
-    const handleSearch = (search: string, region: string) => {
-        let data = [...countries]
-
-        if (region) {
-            data = region === 'Regions'
-                ? data
-                : data.filter(c => c.region.includes(region))
-        }
-
-        if (search) {
-            data = data.filter(c => c.name.common.toLowerCase().includes(search.toLowerCase()))
-        }
-
-        return data
-    }
-
-    const filteredCountries = handleSearch(search, region)
-
-    useEffect(() => {
-        if (!countries.length) dispatch(fetchCountries())
-    }, [])
+    const {page, pagesCount, setPage} = useContext(CountriesContext)
 
     return (
         <Container>
-            <Grid container justifyContent={'space-around'}>
-                <Grid style={{minWidth: 300}} item mt={4} xs={4}>
-                    <Paper elevation={10}>
-                        <Search title={search} setTitle={setSearch}/>
-                    </Paper>
-                </Grid>
-                <Grid style={{minWidth: 300}} item mt={4} xs={4}>
-                    <Paper elevation={10}>
-                        <CustomSelect setRegion={setRegion}/>
-                    </Paper>
-                </Grid>
-            </Grid>
-            <Grid container>
-                <CountriesList list={filteredCountries}/>
-            </Grid>
+            <CountriesFilters/>
+            <CountriesList/>
+            <Pagination
+                style={{display: 'flex', justifyContent: 'center', margin: 20}}
+                page={page}
+                onChange={(_, value) => setPage(value)}
+                count={pagesCount}
+                variant={'outlined'}
+                shape={'rounded'}
+                color={'primary'}
+            />
         </Container>
     );
 };
