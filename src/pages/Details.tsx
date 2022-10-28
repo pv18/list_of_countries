@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {useNavigate, useSearchParams} from 'react-router-dom'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -8,12 +8,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CardActions from '@mui/material/CardActions';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import {CountriesContext} from '../context/CountriesContext';
+import {CountryInfo} from '../components/CountryInfo';
 
 export const Details = () => {
     const {countries} = useContext(CountriesContext)
@@ -24,12 +21,6 @@ export const Details = () => {
     const clickHandler = () => {
         navigate(-1)
     }
-
-    const styleList = {
-        width: '100%',
-        marginTop: 2,
-        bgcolor: 'background.paper',
-    };
 
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', padding: '40px'}}>
@@ -45,40 +36,17 @@ export const Details = () => {
                         <Typography variant="h4" component="div" textAlign={'center'}>
                             {country?.name.common}
                         </Typography>
-                        <List sx={styleList}>
-                            <ListItem>
-                                <ListItemText primary="Capital"/>
-                                <Typography variant="subtitle2">
-                                    {country?.capital[0]}
-                                </Typography>
-                            </ListItem>
-                            <Divider/>
-                            <ListItem>
-                                <ListItemText primary="Population"/>
-                                <Typography variant="subtitle2">
-                                    {country?.population}
-                                </Typography>
-                            </ListItem>
-                            <Divider light/>
-                            <ListItem divider>
-                                <ListItemText primary="Continent"/>
-                                <Typography variant="subtitle2">
-                                    {country?.continents.toString()}
-                                </Typography>
-                            </ListItem>
-                        </List>
+                        <CountryInfo country={country}/>
                     </CardContent>
                 </CardActionArea>
-                <CardActions>
-                    <Button
-                        size="small"
-                        variant={'contained'}
-                        onClick={clickHandler}
-                        startIcon={<ArrowBackIcon/>}
-                    >
-                        Back
-                    </Button>
-                </CardActions>
+                <Button
+                    size="large"
+                    variant={'contained'}
+                    onClick={clickHandler}
+                    startIcon={<ArrowBackIcon/>}
+                >
+                    Back
+                </Button>
             </Card>
         </Box>
     );
